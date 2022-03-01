@@ -1,57 +1,75 @@
 const pool = require('./db/database');
 
 // Creating tasks
-exports.createTask = function (req, res) {
-    const {title, description, status, requester, owners, due_date} = request.body;
-    pool.query(
-        'INSERT INTO tasks(title, description, status, requester, owners, due_date) VALUES($1, $2, $3, $4, $5, $6)', 
-        [title, description, status, requester, owners, due_date],
-        (err, res) => {
-            if (err) return next(err);
+exports.createTask = async function (req, res) {
+    try {
+        const { title, description, status, requester, owners, due_date } = req.body;
+        await pool.query(
+            'INSERT INTO tasks(title, description, status, requester, owners, due_date) VALUES($1, $2, $3, $4, $5, $6) RETURNING *',
+            [title, description, status, requester, owners, due_date],
+            (err, response) => {
+                if (err) return console.log(err);
+                res.json(response.rows);
+            }
+        );
 
-            response.redirect('/');
-        }
-    );
+    } catch (error) {
+        console.log(error.message);
+    }
+
 };
 
 // Getting specific tasks
-exports.getTask = function (req, res) {
-    const { } = request.body;
-    pool.query(
-        '', 
-        [],
-        (err, res) => {
-            if (err) return next(err);
+exports.getTask = async function (req, res) {
+    try {
+        const { id } = req.params;
+        await pool.query(
+            "SELECT * FROM tasks WHERE id = $1",
+            [id],
+            (err, response) => {
+                if (err) return console.log(err);
+                console.log(response.rows);
+                res.status(200).json(response.rows);
+            }
+        );
 
-            response.redirect('/');
-        }
-    );
+    } catch (error) {
+        console.log(error.message);
+    }
+
 };
 
 // Getting N number of tasks
-exports.getNTasks = function (req, res) {
-    const { } = request.body;
-    pool.query(
-        '', 
-        [],
-        (err, res) => {
-            if (err) return next(err);
+exports.getNTasks = async function (req, res) {
+    try {
+        const { limit } = req.params;
+        console.log(limit);
 
-            response.redirect('/');
-        }
-    );
+        await pool.query(
+            'SELECT * FROM tasks ORDER BY id LIMIT $1',
+            [limit],
+            (err, response) => {
+                if (err) return console.log(err);
+                console.log(response.rows);
+                res.json(response.rows);
+            }
+        );
+    } catch (error) {
+        console.log(error.message);
+    }
+
 };
 
 // Updating status
-exports.updateStatus = function (req, res) {
-    const { } = request.body;
-    pool.query(
-        '', 
-        [],
+exports.updateStatus = async function (req, res) {
+    const { status, id } = req.body;
+    await pool.query(
+        'UPDATE tasks SET status = $1 WHERE id = $2',
+        [status, id],
         (err, res) => {
-            if (err) return next(err);
+            if (err) return console.log(err);
 
-            response.redirect('/');
+            res.json("Status Updated");
         }
     );
 };
