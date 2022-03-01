@@ -42,12 +42,12 @@ exports.getTask = async function (req, res) {
 // Getting N number of tasks
 exports.getNTasks = async function (req, res) {
     try {
-        const { limit } = req.params;
-        console.log(limit);
+        const { N } = req.params;
+        console.log(N);
 
         await pool.query(
             'SELECT * FROM tasks ORDER BY id LIMIT $1',
-            [limit],
+            [N],
             (err, response) => {
                 if (err) return console.log(err);
                 console.log(response.rows);
@@ -62,14 +62,19 @@ exports.getNTasks = async function (req, res) {
 
 // Updating status
 exports.updateStatus = async function (req, res) {
-    const { status, id } = req.body;
-    await pool.query(
-        'UPDATE tasks SET status = $1 WHERE id = $2',
-        [status, id],
-        (err, res) => {
-            if (err) return console.log(err);
+    try {
+        const { status, id } = req.body;
+        await pool.query(
+            'UPDATE tasks SET status = $1 WHERE id = $2',
+            [status, id],
+            (err, response) => {
+                if (err) return console.log(err);
 
-            res.json("Status Updated");
-        }
-    );
+                res.json("Status Updated");
+            }
+        );
+    } catch (error) {
+        console.log(error.message);
+    }
+
 };

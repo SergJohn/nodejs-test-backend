@@ -8,7 +8,7 @@ const client = new Client({
     database: process.env.dbDb,
     password: process.env.dbPass,
     port: process.env.dbPort,
-    // connectionString: process.env.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     // ssl: true
 })
 
