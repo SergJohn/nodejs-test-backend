@@ -4,10 +4,8 @@
   "description": "challenge test for backend developer position",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "build": "cd client/ && npm install && npm run build",
-    "dev": "nodemon server"
+    "build": "cd client/ && npm install && npm run build"
   },
   "author": "mfranca",
   "license": "ISC",
