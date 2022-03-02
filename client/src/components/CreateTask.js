@@ -97,7 +97,7 @@ function CreateTask() {
                 </FormControl>
                 <TextField id="filled-basic" label="requester" variant="filled" type="text" required name="requester" value={requester} onChange={handleRequesterChange} />
                 <TextField id="filled-basic" label="owners" variant="filled" type="text" required name="owners" value={owners} onChange={handleOwnersChange} />
-                <TextField id="filled-basic" label="due_date" variant="filled" type="text" required name="due_date" value={due_date} onChange={handleDueDateChange} />
+                <TextField id="filled-basic" label="due_date: yyyy-mm-dd" variant="filled" type="text" required name="due_date" value={due_date} onChange={handleDueDateChange} />
                 {/* <TextField label="Outlined secondary" color="secondary" focused /> */}
                 <Button type="submit" variant="contained">Add Task</Button>
 
