@@ -1,4 +1,4 @@
-# Backend Engineer @ GNAR - NodeJS Challenge - Solution
+# Backend Engineer - NodeJS Challenge - Solution
 ---
 
 ## Context
@@ -52,7 +52,7 @@ Notes:
 
 ## Link of the deployed UI application
 ---
-[GNAR - Task - Application](https://gnar-tasks.herokuapp.com/)
+[Task - Application](https://gnar-tasks.herokuapp.com/)
 
 ## Notes
 ---
